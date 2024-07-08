@@ -1,0 +1,1 @@
+model weights are in /cephfs/work/maria/cloud_detection/trained_weights
