@@ -115,6 +115,6 @@ base_xml_filepath = "annotations_base.xml"
 
 outputs = []
 #for out in outputs:
-outputs.append({"name": id, "change": mask_valid})
+outputs.append({"name": 'images/{}'.format(id), "change": mask_valid})
 
 create_annotations(outputs, base_xml_filepath, 'output_test.xml', class_labels_out)
