@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 from scipy.ndimage import label
 from PIL import Image
 import numpy as np
+import os
+
 
 class_labels_out = {
     1: "cloud"
@@ -103,18 +105,18 @@ def create_annotations(output_changes, base_xml_filepath, output_xml_filepath, c
     with open(output_xml_filepath, "w") as f:
         f.write(xmlstr)
 
-###########################################
-id = '36_5255811_3.png'
-##########################################
-mask_valid = Image.open('./masks/36_5255811_3.png')
-mask_valid = np.array(mask_valid)
-idx = np.where(mask_valid==255)
-mask_valid[idx]=1
-print(mask_valid.shape)
-base_xml_filepath = "annotations_base.xml"
-
+ids = os.listdir('./images/')
 outputs = []
-#for out in outputs:
-outputs.append({"name": 'images/{}'.format(id), "change": mask_valid})
+for id in ids:
+###########################################
+##########################################
+  mask_valid = Image.open('./masks/{}'.format(id))
+  mask_valid = np.array(mask_valid)
+  idx = np.where(mask_valid==255)
+  mask_valid[idx]=1
+  base_xml_filepath = "annotations_base.xml"
 
-create_annotations(outputs, base_xml_filepath, 'output_test.xml', class_labels_out)
+  #for out in outputs:
+  outputs.append({"name": 'images/{}'.format(id), "change": mask_valid})
+
+create_annotations(outputs, base_xml_filepath, 'clouds2.xml', class_labels_out)
